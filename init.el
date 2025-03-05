@@ -4,7 +4,7 @@
 ;; 一些路径设置
 ;; ------------------------------------------------------------------------------------------------------------------------
 (setq user-home-directory (expand-file-name "~/"))
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "elisp" user-emacs-directory))
 (add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache" user-home-directory))
 (setq package-user-dir (expand-file-name "emacs-package" user-home-directory)
       custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -23,6 +23,7 @@
 (unless (bound-and-true-p package--initialized) (package-initialize))
 (unless package-archive-contents (package-refresh-contents))
 
+
 (require 'init-builtin)
 (require 'init-keybinding)
 
@@ -31,6 +32,12 @@
   :ensure t
   :config
   (which-key-mode))
+
+
+(use-package beacon
+  :ensure t
+  :config
+  (beacon-mode 1))
 
 
 (use-package company
@@ -61,17 +68,21 @@
   (global-set-key (kbd "C-= e") 'er/mark-email)
   (global-set-key (kbd "C-= d") 'er/mark-defun))
 
+
 (require 'init-consult)
 (require 'init-programming)
+
 
 ;; ------------------------------------------------------------------------------------------------------------------------
 ;; vertico, orderless, marginalia, embark
 ;; ------------------------------------------------------------------------------------------------------------------------
+
 ;; minibuffer 的补全
 (use-package vertico
   :ensure t
   :init
   (vertico-mode t))
+
 
 ;; minibuffer 的无序模糊搜索
 (use-package orderless
@@ -79,11 +90,13 @@
   :config
   (setq completion-styles '(orderless)))
 
+
 ;; minibuffer 搜索候选加 annotation
 (use-package marginalia
   :ensure t
   :init
   (marginalia-mode t))
+
 
 ;; embark 上下文菜单
 (use-package embark
@@ -92,6 +105,8 @@
   :bind
   (("C-." . embark-act)
    ("C-h B" . embark-bindings)))
+
+
 (use-package embark-consult
   :ensure t
   :hook
@@ -105,6 +120,7 @@
   :bind (:map projectile-mode-map
               ("C-c p" . projectile-command-map)))
 
+
 (use-package ace-window
   :ensure t
   :init
@@ -113,6 +129,14 @@
     (custom-set-faces
      '(aw-leading-char-face
        ((t (:inherit ace-jump-face-foreground :height 3.0)))))))
+
+
+(use-package avy
+  :ensure t
+  :bind (("M-g c" . avy-goto-char)
+         ("M-g w" . avy-goto-word-1)
+         ("M-g l" . avy-goto-line)))
+
 
 (use-package dired-sidebar
   :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
@@ -128,6 +152,9 @@
   (push 'rotate-windows dired-sidebar-toggle-hidden-commands)
   (setq dired-sidebar-subtree-line-prefix "__")
   (setq dired-sidebar-use-term-integration t))
+
+
+(require 'init-jxh-codes)
 
 
 (load-theme 'wombat)

@@ -1,8 +1,8 @@
 ;; -*- lexical-binding: t -*-
 
-;; --------------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------------------------------
 ;; 基本内置选项设置
-;; --------------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------------------------------
 
 (setq inhibit-startup-message t)
 
@@ -61,6 +61,18 @@
 (add-to-list 'default-frame-alist '(height . 40))
 (add-to-list 'default-frame-alist '(fullscreen))
 (add-to-list 'default-frame-alist '(font . "Maple Mono NF CN 11"))
+
+;; 影响启动速度
+;; (let* ((ps-script (expand-file-name "powershell/GetDisplayResolution.ps1" user-emacs-directory))
+;;        (resolution (shell-command-to-string (format "powershell -File \"%s\"" ps-script)))
+;;        (height (string-to-number (cadr (split-string resolution "x"))))
+;;        (font-size (cond
+;;                    ((= height 1080) 10)
+;;                    ((= height 1440) 11)
+;;                    ((= height 2160) 12)
+;;                    (t 10))))
+;;   (message "Screen height detected: %d" height)
+;;   (add-to-list 'default-frame-alist `(font . ,(format "Maple Mono NF CN %d" font-size))))
 
 
 ;; 默认编码为 utf-8

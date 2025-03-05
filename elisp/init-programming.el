@@ -15,4 +15,13 @@
   (add-to-list 'eglot-server-programs '((c-mode c++-mode) . ("clangd")))
   (add-to-list 'eglot-server-programs '(python-mode . ("pyright-langserver" "--stdio"))))
 
+(use-package consult-eglot
+  :ensure t)
+
+(use-package consult-eglot-embark
+  :ensure t
+  :after (embark consult-eglot)
+  :config
+  (consult-eglot-embark-mode))
+
 (provide 'init-programming)
