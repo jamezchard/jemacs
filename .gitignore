@@ -2,6 +2,7 @@
 auto-save-list/
 transient/
 server/
+eln-cache/
 custom.el
 project*
 recentf

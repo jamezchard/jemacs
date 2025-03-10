@@ -13,7 +13,10 @@
          (python-mode . eglot-ensure))
   :config
   (add-to-list 'eglot-server-programs '((c-mode c++-mode) . ("clangd")))
+  (add-to-list 'eglot-server-programs '(markdown-mode . ("marksman")))
   (add-to-list 'eglot-server-programs '(python-mode . ("pyright-langserver" "--stdio"))))
+
+(add-hook 'markdown-mode-hook #'eglot-ensure)
 
 (use-package consult-eglot
   :ensure t)

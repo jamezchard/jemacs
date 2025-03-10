@@ -8,7 +8,7 @@
 
 ;; shift + 方向键来切换 window
 ;; 跟 org-mode 的日期界面冲突
-;; (windmove-default-keybindings)
+(windmove-default-keybindings)
 
 ;; 记住window配置状态，C-c left or right来切换
 (winner-mode 1)

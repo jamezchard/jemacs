@@ -47,7 +47,11 @@
   :config
   (setq company-minimum-prefix-length 3)
   (setq company-idle-delay 0.3)
-  (setq company-global-modes '(not eshell-mode)))
+  (setq company-global-modes '(not eshell-mode shell-mode powershell-mode)))
+
+
+(use-package powershell
+  :ensure t)
 
 
 (use-package expand-region
