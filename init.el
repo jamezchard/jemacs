@@ -124,7 +124,6 @@
               ("C-c p" . projectile-command-map)))
 
 
-
 (use-package ace-window
   :ensure t
   :init
@@ -156,6 +155,13 @@
   (push 'rotate-windows dired-sidebar-toggle-hidden-commands)
   (setq dired-sidebar-subtree-line-prefix "__")
   (setq dired-sidebar-use-term-integration t))
+
+;; 不用 M-m 跳首个非空字符了
+(use-package mwim
+  :ensure t
+  :bind
+  ("C-a" . mwim-beginning-of-code-or-line)
+  ("C-e" . mwim-end-of-code-or-line))
 
 
 (require 'init-jxh-codes)
