@@ -6,6 +6,17 @@
 (add-hook 'c-mode-hook   (lambda () (local-set-key (kbd "M-o") 'ff-find-other-file)))
 (add-hook 'c++-mode-hook (lambda () (local-set-key (kbd "M-o") 'ff-find-other-file)))
 
+
+(use-package markdown-mode
+  :ensure t
+  :mode ("README\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "multimarkdown")
+  :bind (:map markdown-mode-map
+         ("C-c C-e" . markdown-do))
+  :custom-face
+  (markdown-code-face ((t (:inherit default)))))
+
+
 (use-package eglot
   :ensure t
   :hook ((c-mode . eglot-ensure)

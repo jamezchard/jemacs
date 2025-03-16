@@ -119,10 +119,10 @@
 
 (use-package projectile
   :ensure t
-  :init
-  (projectile-mode t)
+  :commands (projectile-mode projectile-command-map)
   :bind (:map projectile-mode-map
               ("C-c p" . projectile-command-map)))
+
 
 
 (use-package ace-window

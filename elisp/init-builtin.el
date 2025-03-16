@@ -58,7 +58,7 @@
 (add-to-list 'default-frame-alist '(top . 0.5))
 (add-to-list 'default-frame-alist '(left . 0.5))
 (add-to-list 'default-frame-alist '(width . 160))
-(add-to-list 'default-frame-alist '(height . 40))
+(add-to-list 'default-frame-alist '(height . 64))
 (add-to-list 'default-frame-alist '(fullscreen))
 ;; (add-to-list 'default-frame-alist '(font . "Maple Mono NF CN 11"))
 
