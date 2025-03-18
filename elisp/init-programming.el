@@ -23,7 +23,7 @@
          (c++-mode . eglot-ensure)
          (python-mode . eglot-ensure))
   :config
-  (add-to-list 'eglot-server-programs '((c-mode c++-mode) . ("clangd")))
+  (add-to-list 'eglot-server-programs '((c-mode c++-mode) . ("clangd" "--background-index=1" "--j=1")))
   (add-to-list 'eglot-server-programs '(markdown-mode . ("marksman")))
   (add-to-list 'eglot-server-programs '(python-mode . ("pyright-langserver" "--stdio"))))
 

@@ -57,22 +57,27 @@
 
 (add-to-list 'default-frame-alist '(top . 0.5))
 (add-to-list 'default-frame-alist '(left . 0.5))
-(add-to-list 'default-frame-alist '(width . 160))
-(add-to-list 'default-frame-alist '(height . 64))
 (add-to-list 'default-frame-alist '(fullscreen))
-;; (add-to-list 'default-frame-alist '(font . "Maple Mono NF CN 11"))
+
 
 ;; 影响启动速度, 不过反正 daemon 模式, 不差这么点了
 (let* ((ps-script (expand-file-name "powershell/GetDisplayResolution.ps1" user-emacs-directory))
        (resolution (shell-command-to-string (format "powershell -File \"%s\"" ps-script)))
        (height (string-to-number (cadr (split-string resolution "x"))))
-       (font-size (cond
-                   ((= height 1080) 10)
-                   ((= height 1440) 11)
-                   ((= height 2160) 12)
-                   (t 10))))
-  (message "Screen height detected: %d" height)
-  (add-to-list 'default-frame-alist `(font . ,(format "Maple Mono NF CN %d" font-size))))
+       (settings (cond
+                  ((<= height 1080) '(:font-size 10 :width 160 :height 48))
+                  ((<= height 1440) '(:font-size 11 :width 160 :height 64))
+                  ((<= height 2160) '(:font-size 12 :width 160 :height 80))
+                  (t '(:font-size 10 :width 160 :height 48)))) ;; 默认设置
+       (font-size (plist-get settings :font-size))
+       (frame-width (plist-get settings :width))
+       (frame-height (plist-get settings :height)))
+
+  (message "Screen height detected: %d, applying settings: font-size=%d, width=%d, height=%d"
+           height font-size frame-width frame-height)
+  (add-to-list 'default-frame-alist `(font . ,(format "Maple Mono NF CN %d" font-size)))
+  (add-to-list 'default-frame-alist `(width . ,frame-width))
+  (add-to-list 'default-frame-alist `(height . ,frame-height)))
 
 
 ;; 默认编码为 utf-8
