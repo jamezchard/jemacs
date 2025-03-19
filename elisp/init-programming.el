@@ -27,6 +27,7 @@
   (add-to-list 'eglot-server-programs '(markdown-mode . ("marksman")))
   (add-to-list 'eglot-server-programs '(python-mode . ("pyright-langserver" "--stdio"))))
 
+(add-hook 'eglot-managed-mode-hook (lambda () (eglot-inlay-hints-mode -1)))
 (add-hook 'markdown-mode-hook #'eglot-ensure)
 
 (use-package consult-eglot

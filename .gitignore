@@ -3,6 +3,8 @@ auto-save-list/
 transient/
 server/
 eln-cache/
+straight/
+bookmarks
 custom.el
 project*
 recentf
