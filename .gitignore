@@ -4,6 +4,7 @@ transient/
 server/
 eln-cache/
 straight/
+*.exe
 bookmarks
 custom.el
 project*

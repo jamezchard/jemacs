@@ -60,9 +60,8 @@
 (add-to-list 'default-frame-alist '(fullscreen))
 
 
-;; 影响启动速度, 不过反正 daemon 模式, 不差这么点了
-(let* ((ps-script (expand-file-name "powershell/GetDisplayResolution.ps1" user-emacs-directory))
-       (resolution (shell-command-to-string (format "powershell -File \"%s\"" ps-script)))
+;; 根据不同分辨率做不同设置
+(let* ((resolution (shell-command-to-string (format "%s" (expand-file-name "cc/get-scr-res.exe" user-emacs-directory))))
        (height (string-to-number (cadr (split-string resolution "x"))))
        (settings (cond
                   ((<= height 1080) '(:font-size 10 :width 160 :height 48))
