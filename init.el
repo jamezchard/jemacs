@@ -138,7 +138,8 @@
 
 (use-package projectile
   :ensure t
-  :commands (projectile-mode projectile-command-map)
+  :init
+  (projectile-mode +1)
   :bind (:map projectile-mode-map
               ("C-c p" . projectile-command-map)))
 
