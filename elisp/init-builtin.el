@@ -64,17 +64,17 @@
 (let* ((resolution (shell-command-to-string (format "%s" (expand-file-name "cc/get-scr-res.exe" user-emacs-directory))))
        (height (string-to-number (cadr (split-string resolution "x"))))
        (settings (cond
-                  ((<= height 1080) '(:font-size 10 :width 160 :height 48))
-                  ((<= height 1440) '(:font-size 11 :width 160 :height 64))
-                  ((<= height 2160) '(:font-size 12 :width 160 :height 80))
-                  (t '(:font-size 10 :width 160 :height 48)))) ;; 默认设置
+                  ((<= height 1080) '(:font-size 10 :width 160 :height 40))
+                  ((<= height 1440) '(:font-size 11 :width 160 :height 40))
+                  ((<= height 2160) '(:font-size 12 :width 160 :height 40))
+                  (t '(:font-size 10 :width 160 :height 40)))) ;; 默认设置
        (font-size (plist-get settings :font-size))
        (frame-width (plist-get settings :width))
        (frame-height (plist-get settings :height)))
 
   (message "Screen height detected: %d, applying settings: font-size=%d, width=%d, height=%d"
            height font-size frame-width frame-height)
-  (add-to-list 'default-frame-alist `(font . ,(format "Maple Mono NF CN %d" font-size)))
+  (add-to-list 'default-frame-alist `(font . ,(format "Maple Mono NL NF CN %d" font-size)))
   (add-to-list 'default-frame-alist `(width . ,frame-width))
   (add-to-list 'default-frame-alist `(height . ,frame-height)))
 
