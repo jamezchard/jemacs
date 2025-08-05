@@ -48,5 +48,9 @@
 (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
 (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
 
+(use-package pyvenv
+  :ensure t
+  :config
+  (pyvenv-mode 1))
 
 (provide 'init-programming)

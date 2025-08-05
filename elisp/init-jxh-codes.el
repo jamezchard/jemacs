@@ -29,6 +29,29 @@
 ;; Override the default find-file
 (global-set-key (kbd "C-x C-f") 'jxh-find-file)
 
+(defun jxh-generate-dir-locals-for-python-venv (venv-path)
+  "Generate a .dir-locals.el file in current directory for the given VENV-PATH."
+  (interactive
+   (list
+    (read-directory-name "Select Python virtualenv directory: " nil nil t)))
+  (let* ((venv-path (directory-file-name (expand-file-name venv-path)))
+         (venv-bin (if (eq system-type 'windows-nt)
+                       "Scripts/python.exe"
+                     "bin/python"))
+         (python-exe (expand-file-name venv-bin venv-path))
+         (dir-locals-file (expand-file-name ".dir-locals.el" default-directory))
+         (content (format
+                   "((python-mode . (
+  (pyvenv-activate . \"%s\")
+  (python-shell-interpreter . \"%s\")
+  (eglot-workspace-configuration . ((:python . (:pythonPath \"%s\"))))
+)))"
+                   venv-path python-exe python-exe)))
+    (when (or (not (file-exists-p dir-locals-file))
+              (y-or-n-p "Overwrite existing .dir-locals.el? "))
+      (with-temp-file dir-locals-file
+        (insert content))
+      (message ".dir-locals.el written for venv: %s" venv-path))))
 
 (provide 'init-jxh-codes)
 
