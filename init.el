@@ -177,6 +177,35 @@
   (setq dired-sidebar-use-term-integration t))
 
 
+(use-package evil
+  :ensure t
+  :init
+  (setq evil-mode nil)
+  :config
+  (defun my-evil-bindings ()
+    (define-key evil-insert-state-map (kbd "C-f") 'forward-char)
+    (define-key evil-insert-state-map (kbd "C-b") 'backward-char)
+    (define-key evil-insert-state-map (kbd "C-n") 'next-line)
+    (define-key evil-insert-state-map (kbd "C-p") 'previous-line)
+    (define-key evil-insert-state-map (kbd "C-a") 'beginning-of-line)
+    (define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
+    (define-key evil-insert-state-map (kbd "C-d") 'delete-char)
+    (define-key evil-insert-state-map (kbd "C-k") 'kill-line))
+
+  (defun toggle-global-evil-mode ()
+    (interactive)
+    (if evil-mode
+        (evil-mode -1)
+      (evil-mode 1)
+      (my-evil-bindings))
+    (message "Evil mode %s" (if evil-mode "enabled" "disabled")))
+
+  (global-set-key (kbd "M-z") 'toggle-global-evil-mode)
+
+  (when evil-mode
+    (my-evil-bindings)))
+
+
 (require 'init-jxh-codes)
 
 
