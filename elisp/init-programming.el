@@ -11,6 +11,7 @@
 
 (setq-default indent-tabs-mode nil tab-width 8)
 ;; c/c++
+(add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode))
 (add-hook 'c-mode-hook (lambda () (setq c-basic-offset 2)))
 (add-hook 'c++-mode-hook (lambda () (setq c-basic-offset 2)))
 ;; ocaml (tuareg-mode)
@@ -38,7 +39,7 @@
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown")
   :bind (:map markdown-mode-map
-         ("C-c C-e" . markdown-do))
+              ("C-c C-e" . markdown-do))
   :custom-face
   (markdown-code-face ((t (:inherit default)))))
 
@@ -89,8 +90,8 @@
             :branch "main")
   :hook (prog-mode . copilot-mode)
   :bind (:map copilot-completion-map
-         ("<tab>" . copilot-accept-completion)
-         ("TAB" . copilot-accept-completion)))
+              ("<tab>" . copilot-accept-completion)
+              ("TAB" . copilot-accept-completion)))
 
 (use-package pyvenv
   :ensure t
