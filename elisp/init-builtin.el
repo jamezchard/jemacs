@@ -41,6 +41,9 @@
 ;; 自动载入外部修改
 (global-auto-revert-mode t)
 
+;; 默认截断
+(setq-default truncate-lines t)
+
 ;; 平滑滚动
 (setq scroll-conservatively 100)
 ;; 鼠标平滑滚动
