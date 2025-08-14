@@ -152,7 +152,9 @@
                           (let ((python (dape-config-get config 'command)))
                             (unless (zerop (call-process python nil nil nil "-c" "import debugpy.adapter"))
                               (user-error "%s module debugpy is not installed" python))))
-                 command "D:/pyEnv/Scripts/python.exe"
+                 command (lambda ()
+                           (or python-shell-interpreter
+                               "python"))
                  command-args ("-m" "debugpy.adapter" "--host" "127.0.0.1" "--port" "19999")
                  port 19999
                  :request "launch"
