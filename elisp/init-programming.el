@@ -155,8 +155,8 @@
                  command (lambda ()
                            (or python-shell-interpreter
                                "python"))
-                 command-args ("-m" "debugpy.adapter" "--host" "127.0.0.1" "--port" "19999")
-                 port 19999
+                 command-args ("-m" "debugpy.adapter" "--host" "127.0.0.1" "--port" "20258")
+                 port 20258
                  :request "launch"
                  :type "python"
                  :cwd dape-cwd
