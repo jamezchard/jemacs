@@ -142,6 +142,12 @@
   ;; Projectile users
   (setq dape-cwd-function 'projectile-project-root))
 
+(custom-theme-set-faces
+ 'user
+ ;; '(dape-inlay-hint-face ((t (:inherit :default :weight bold :height 1.0))))
+ '(dape-inlay-hint-face ((t (:inherit shadow :height 1.0))))
+ '(dape-inlay-hint-highlight-face ((t (:inherit (bold highlight) :height 1.0))))
+ )
 
 (with-eval-after-load 'dape
   (add-to-list 'dape-configs
