@@ -103,6 +103,9 @@
   (add-to-list 'copilot-indentation-alist '(closure-mode 2))
   (add-to-list 'copilot-indentation-alist '(emacs-lisp-mode 2)))
 
+;; (setq copilot-disable-max-char-warning t)
+(setq copilot-max-char -1)
+
 (use-package dape
   :ensure t
   :preface
