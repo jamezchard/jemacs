@@ -5,13 +5,11 @@
 (add-hook 'c-mode-hook   (lambda () (local-set-key (kbd "M-o") 'ff-find-other-file)))
 (add-hook 'c++-mode-hook (lambda () (local-set-key (kbd "M-o") 'ff-find-other-file)))
 
-;; >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+;; --------------------------------------------------------------------------------
 ;; indent 相关设置
-;; >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
+;; --------------------------------------------------------------------------------
 (setq-default indent-tabs-mode nil tab-width 8)
 ;; c/c++
-(add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode))
 (add-hook 'c-mode-hook (lambda () (setq c-basic-offset 2)))
 (add-hook 'c++-mode-hook (lambda () (setq c-basic-offset 2)))
 ;; ocaml (tuareg-mode)
@@ -29,8 +27,7 @@
   (dtrt-indent-mode 1)
   (setq dtrt-indent-verbosity 0)
   (setq dtrt-indent-run-after-smie t))
-
-;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+;; --------------------------------------------------------------------------------
 
 (use-package markdown-mode
   :ensure t
@@ -185,5 +182,11 @@
   :ensure t
   :config
   (pyvenv-mode 1))
+
+;; (add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode))
+;; (add-to-list 'auto-mode-alist '("\\.cl\\'" . c++-mode))
+;; cuda-mode and opencl-c-mode derives from c++-mode
+(use-package cuda-mode :ensure t)
+(use-package opencl-c-mode :ensure t)
 
 (provide 'init-programming)
