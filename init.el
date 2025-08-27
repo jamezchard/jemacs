@@ -30,21 +30,21 @@
 ;; ----------------------------------------------------------------------------------------------------
 ;; bootstrap straight.el
 ;; ----------------------------------------------------------------------------------------------------
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name
-        "straight/repos/straight.el/bootstrap.el"
-        (or (bound-and-true-p straight-base-dir)
-            user-emacs-directory)))
-      (bootstrap-version 7))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
+;; (defvar bootstrap-version)
+;; (let ((bootstrap-file
+;;        (expand-file-name
+;;         "straight/repos/straight.el/bootstrap.el"
+;;         (or (bound-and-true-p straight-base-dir)
+;;             user-emacs-directory)))
+;;       (bootstrap-version 7))
+;;   (unless (file-exists-p bootstrap-file)
+;;     (with-current-buffer
+;;         (url-retrieve-synchronously
+;;          "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+;;          'silent 'inhibit-cookies)
+;;       (goto-char (point-max))
+;;       (eval-print-last-sexp)))
+;;   (load bootstrap-file nil 'nomessage))
 
 
 (use-package which-key
@@ -59,14 +59,14 @@
   (beacon-mode 1))
 
 
-(use-package company
-  :ensure t
-  :init
-  (global-company-mode t)
-  :config
-  (setq company-minimum-prefix-length 3)
-  (setq company-idle-delay 0.3)
-  (setq company-global-modes '(not eshell-mode shell-mode powershell-mode)))
+;; (use-package company
+;;   :ensure t
+;;   :init
+;;   (global-company-mode t)
+;;   :config
+;;   (setq company-minimum-prefix-length 3)
+;;   (setq company-idle-delay 0.3)
+;;   (setq company-global-modes '(not eshell-mode shell-mode powershell-mode)))
 
 
 (use-package powershell
@@ -111,7 +111,39 @@
 (use-package orderless
   :ensure t
   :config
-  (setq completion-styles '(orderless)))
+  (setq completion-styles '(orderless)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles basic partial-completion)))))
+
+
+;; In-buffer completion UI consistent with Vertico: Corfu
+(use-package corfu
+  :ensure t
+  :init
+  (global-corfu-mode)
+  :custom
+  (corfu-auto t)
+  (corfu-auto-delay 0.3)
+  (corfu-auto-prefix 3)
+  (corfu-quit-no-match 'separator)
+  (corfu-preselect 'prompt)
+  :config
+  ;; Disable auto popup in shell-mode; manual completion still available
+  (add-hook 'shell-mode-hook (lambda () (setq-local corfu-auto nil)))
+  (add-hook 'eshell-mode-hook (lambda () (setq-local corfu-auto nil)))
+  (add-hook 'powershell-mode-hook (lambda () (setq-local corfu-auto nil))))
+
+;; Extra completion sources: Cape
+(use-package cape
+  :ensure t
+  :init
+  (add-hook 'prog-mode-hook
+            (lambda ()
+              (setq-local tab-always-indent 'complete)
+              (add-to-list 'completion-at-point-functions #'cape-file)
+              (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+              (add-to-list 'completion-at-point-functions #'cape-keyword)
+              (add-to-list 'completion-at-point-functions #'cape-symbol))))
 
 
 ;; minibuffer 搜索候选加 annotation
@@ -147,11 +179,11 @@
 (use-package ace-window
   :ensure t
   :init
-  (progn
-    (global-set-key [remap other-window] 'ace-window)
-    (custom-set-faces
-     '(aw-leading-char-face
-       ((t (:inherit ace-jump-face-foreground :height 3.0)))))))
+  (global-set-key [remap other-window] 'ace-window)
+  :config
+  ;; Customize ace-window face
+  (custom-theme-set-faces 'user
+   '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 3.0))))))
 
 
 (use-package avy
@@ -196,14 +228,13 @@
     (interactive)
     (if evil-mode
         (evil-mode -1)
-      (evil-mode 1)
-      (my-evil-bindings))
+      (evil-mode 1))
     (message "Evil mode %s" (if evil-mode "enabled" "disabled")))
 
   (global-set-key (kbd "M-z") 'toggle-global-evil-mode)
 
-  (when evil-mode
-    (my-evil-bindings)))
+  ;; Use hook to set up bindings when evil-mode is enabled
+  (add-hook 'evil-mode-hook #'my-evil-bindings))
 
 
 (require 'init-jxh-codes)

@@ -3,6 +3,20 @@
 ;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum)
 
+;; Restore GC settings after startup and tune during minibuffer usage
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (setq gc-cons-threshold (* 64 1024 1024)
+                  gc-cons-percentage 0.1)))
+
+(add-hook 'minibuffer-setup-hook
+          (lambda ()
+            (setq gc-cons-threshold (* 128 1024 1024))))
+
+(add-hook 'minibuffer-exit-hook
+          (lambda ()
+            (setq gc-cons-threshold (* 64 1024 1024))))
+
 ;; Prevent unwanted runtime compilation for gccemacs (native-comp) users;
 ;; packages are compiled ahead-of-time when they are installed and site files
 ;; are compiled when gccemacs is installed.
@@ -22,9 +36,13 @@
 ;; to skip the mtime checks on every *.elc file.
 (setq load-prefer-newer noninteractive)
 
-;; Explicitly set the prefered coding systems to avoid annoying prompt
-;; from emacs (especially on Microsoft Windows)
+;; Explicit UTF-8 defaults (centralized here)
+(set-language-environment "UTF-8")
 (prefer-coding-system 'utf-8)
+(setq default-buffer-file-coding-system 'utf-8-unix)
+;; Clipboard/selection encoding and common env
+(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+(setenv "PYTHONIOENCODING" "UTF-8")
 
 ;; Inhibit resizing frame
 (setq frame-inhibit-implied-resize t)

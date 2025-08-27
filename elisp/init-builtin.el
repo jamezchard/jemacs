@@ -38,6 +38,11 @@
 ;; 开启全局行号
 (global-display-line-numbers-mode)
 
+;; 在某些模式下关闭行号以避免干扰
+(dolist (mode '(term-mode eshell-mode vterm-mode shell-mode dired-mode org-mode))
+  (add-hook (intern (format "%s-hook" mode))
+            (lambda () (display-line-numbers-mode -1))))
+
 ;; 自动载入外部修改
 (global-auto-revert-mode t)
 
@@ -81,15 +86,4 @@
   (add-to-list 'default-frame-alist `(width . ,frame-width))
   (add-to-list 'default-frame-alist `(height . ,frame-height)))
 
-
-;; 默认编码为 utf-8
-(prefer-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-file-name-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(setenv "PYTHONIOENCODING" "UTF-8")
-(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
-
 (provide 'init-builtin)
-

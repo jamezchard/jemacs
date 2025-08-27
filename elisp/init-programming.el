@@ -68,10 +68,6 @@
   (add-hook 'eglot-managed-mode-hook (lambda () (eglot-inlay-hints-mode -1))))
 
 
-
-(add-hook 'eglot-managed-mode-hook (lambda () (eglot-inlay-hints-mode -1)))
-(add-hook 'markdown-mode-hook #'eglot-ensure)
-
 (use-package consult-eglot
   :ensure t)
 
@@ -188,5 +184,12 @@
 ;; cuda-mode and opencl-c-mode derives from c++-mode
 (use-package cuda-mode :ensure t)
 (use-package opencl-c-mode :ensure t)
+
+(use-package format-all
+  :commands format-all-mode
+  :hook (prog-mode . format-all-mode)
+  :config
+  (setq-default format-all-formatters
+                '(("Python" (black "-l" "1024")))))
 
 (provide 'init-programming)

@@ -10,4 +10,5 @@ custom.el
 project*
 dape*
 recentf
+savehist
 tramp

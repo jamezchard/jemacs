@@ -17,5 +17,11 @@
 (setq recentf-max-menu-items 100)
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
+;; 保存 minibuffer 历史，提升搜索体验
+(savehist-mode 1)
+(setq savehist-additional-variables
+      '(search-ring regexp-search-ring)
+      savehist-file (expand-file-name "savehist" user-emacs-directory))
+
 (provide 'init-keybinding)
 
