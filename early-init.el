@@ -36,13 +36,23 @@
 ;; to skip the mtime checks on every *.elc file.
 (setq load-prefer-newer noninteractive)
 
-;; Explicit UTF-8 defaults (centralized here)
+;; ================================================================================
+;; 全面启用 UTF-8，带点冗余，但不影响运行
+;; ================================================================================
 (set-language-environment "UTF-8")
 (prefer-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-file-name-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
 (setq default-buffer-file-coding-system 'utf-8-unix)
-;; Clipboard/selection encoding and common env
-(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+;; python subprocess 输出用 UTF-8
 (setenv "PYTHONIOENCODING" "UTF-8")
+;; X11 剪贴板，防止乱码（Linux 下有用）
+(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+;; windows 下的 locale，保证子进程也用 UTF-8
+(setenv "LANG" "en_US.UTF-8")
+
 
 ;; Inhibit resizing frame
 (setq frame-inhibit-implied-resize t)
